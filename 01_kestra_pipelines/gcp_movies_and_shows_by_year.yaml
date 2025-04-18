@@ -1,7 +1,7 @@
-id: gcp_movies_and_shows_scheduled
+id: gcp_movies_and_shows_by_year
 namespace: zoomcamp
 description: |
-  Load content data from GitHub to BigQuery via GCS
+  Load content data from GitHub to BigQuery via GCS for specific years
 
 inputs:
   - id: streaming_service
@@ -12,13 +12,12 @@ inputs:
   - id: year
     type: SELECT
     displayName: Select year
-    values: ["2019", "2020", "2021"]
-    defaults: "2021"
-    allowCustomValue: true
+    values: [2019, 2020, 2021]
+    defaults: 2021
 
 variables:
   file: "{{inputs.streaming_service}}_titles_{{inputs.year}}.csv"
-  gcs_file: "gs://{{kv('GCP_BUCKET_NAME')}}/{{vars.file}}_"
+  gcs_file: "gs://{{kv('GCP_BUCKET_NAME')}}/{{vars.file}}"
   table: "{{kv('GCP_DATASET')}}.{{inputs.streaming_service}}_data_{{inputs.year}}"
 
 tasks:
@@ -40,15 +39,15 @@ tasks:
   - id: extract
     type: io.kestra.plugin.scripts.shell.Commands
     outputFiles:
-      - "{{vars.file}}"
+      - "{{inputs.streaming_service}}_titles_{{inputs.year}}.csv"
     taskRunner:
       type: io.kestra.plugin.core.runner.Process
     commands:
-      - wget -O {{render(vars.file)}} https://raw.githubusercontent.com/Ainapalma/data-engineering-zoomcamp/refs/heads/main/07-course-project/datasets/{{render(vars.file)}}
+      - wget -O {{render(vars.file)}} https://raw.githubusercontent.com/Ainapalma/de-zoomcamp-course-project/refs/heads/main/00_datasets/{{render(vars.file)}}
 
   - id: upload_to_gcs
     type: io.kestra.plugin.gcp.gcs.Upload
-    from: "{{outputs.extract.outputFiles[vars.file]}}"
+    from: "{{outputs.extract.outputFiles[inputs.streaming_service ~ '_titles_' ~ inputs.year ~ '.csv']}}"
     to: "{{render(vars.gcs_file)}}"
 
   - id: create_titles_table
@@ -114,4 +113,4 @@ pluginDefaults:
       serviceAccount: "{{kv('GCP_CREDS')}}"
       projectId: "{{kv('GCP_PROJECT_ID')}}"
       location: "{{kv('GCP_LOCATION')}}"
-      bucket: "{{kv('GCP_BUCKET_NAME')}}"
+      bucket: "{{kv('GCP_BUCKET_NAME')}}" 
