@@ -1,4 +1,4 @@
-# Netflix Content Analysis (with future expansion to Prime & Disney+)
+# Netflix Content Analysis
 
 This project is part of the Data Engineering Zoomcamp course, focusing on analyzing Netflix content data using a modern data stack and best practices in data engineering. Future iterations will include Amazon Prime Video and Disney+ content analysis.
 
@@ -7,7 +7,7 @@ This project is part of the Data Engineering Zoomcamp course, focusing on analyz
 This data engineering project implements an end-to-end pipeline for Netflix content analysis:
 - Data is uploaded to Google Cloud Storage (GCS) using Kestra for orchestration
 - Data is then loaded into BigQuery for storage and processing
-- Transformations are handled with dbt, using well-defined schemas
+- Transformations are handled with dbt, using defined schemas
 - Final insights are visualized through Metabase dashboards
 
 ## Architecture
@@ -118,16 +118,3 @@ The Metabase dashboard provides insights into Netflix content performance and us
 - Add sentiment analysis from user reviews
 - Create recommendation engine across platforms
 - Develop content performance prediction models
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-[Your chosen license]
-
-## Acknowledgments
-
-- Data Engineering Zoomcamp course team
-- Contributors and maintainers of the tools used in this project
