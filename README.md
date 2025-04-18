@@ -1,6 +1,6 @@
 # Netflix Content Analysis
 
-This project is part of the Data Engineering Zoomcamp course, focusing on analyzing Netflix content data using a modern data stack and best practices in data engineering. Future iterations will include Amazon Prime Video and Disney+ content analysis.
+This project is part of the Data Engineering Zoomcamp course, focusing on analyzing Netflix content data using a modern data stack and best practices in data engineering. For future iterations Amazon Prime Video and Disney+ data might be included for further content analysis.
 
 ## Project Overview
 
