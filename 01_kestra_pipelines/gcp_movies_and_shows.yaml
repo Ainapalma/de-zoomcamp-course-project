@@ -1,7 +1,7 @@
 id: gcp_movies_and_shows
 namespace: zoomcamp
 description: |
-  Load streaming service titles data from GitHub to BigQuery via GCS
+  Load content data from GitHub to BigQuery via GCS
 
 inputs:
   - id: streaming_service
@@ -12,7 +12,7 @@ inputs:
 
 variables:
   file: "{{inputs.streaming_service}}_titles.csv"
-  gcs_file: "gs://{{kv('GCP_BUCKET_NAME')}}/{{vars.file}}_"
+  gcs_file: "gs://{{kv('GCP_BUCKET_NAME')}}/{{vars.file}}"
   table: "{{kv('GCP_DATASET')}}.{{inputs.streaming_service}}_data"
 
 tasks:
@@ -37,7 +37,7 @@ tasks:
     taskRunner:
       type: io.kestra.plugin.core.runner.Process
     commands:
-      - wget -O {{render(vars.file)}} https://raw.githubusercontent.com/Ainapalma/data-engineering-zoomcamp/refs/heads/main/07-course-project/datasets/{{render(vars.file)}}
+      - wget -O {{render(vars.file)}} https://raw.githubusercontent.com/Ainapalma/de-zoomcamp-course-project/refs/heads/main/00_datasets/{{render(vars.file)}}
 
   - id: upload_to_gcs
     type: io.kestra.plugin.gcp.gcs.Upload
