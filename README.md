@@ -39,8 +39,8 @@ This data engineering project implements an end-to-end pipeline for Netflix cont
 ├── 00_datasets/                  # Raw and processed Netflix datasets
 ├── 01_kestra_pipelines/         # Kestra workflow definitions and configurations
 ├── 02_dbt_transformations/      # dbt models, schemas, and transformations
-├── 03_metabase_dashboards/      # Metabase dashboard configurations and exports
-├── data_exploration_notebook.ipynb  # Jupyter notebook for initial data exploration
+├── 03_metabase_dashboard/      # Metabase dashboard configurations and exports
+├── 00_jupyter_data_overview.ipynb  # Jupyter notebook for initial data exploration
 ├── requirements.txt             # Python dependencies
 ├── .gitignore                   # Git ignore file
 └── README.md                    # Project documentation
@@ -89,15 +89,11 @@ This data engineering project implements an end-to-end pipeline for Netflix cont
 
 ## Data Models
 
-The project uses dbt for transforming raw Netflix content data into analytics-ready models. The schema is well-documented and focuses on:
-- Content metadata analysis
-- Viewing patterns
-- Engagement metrics
-- Trend analysis
+The project uses dbt for transforming raw Netflix content data into analytics-ready models. 
 
 ## Dashboard
 
-The Metabase dashboard provides insights into Netflix content performance and user engagement patterns.
+The Metabase dashboard provides insights into Netflix distribution of content types and movies by release year.
 
 ## Future Steps
 
