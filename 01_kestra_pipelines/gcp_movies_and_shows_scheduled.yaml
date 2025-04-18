@@ -1,19 +1,25 @@
-id: gcp_movies_and_shows
+id: gcp_movies_and_shows_scheduled
 namespace: zoomcamp
 description: |
-  Load streaming service titles data from GitHub to BigQuery via GCS
+  Load content data from GitHub to BigQuery via GCS
 
 inputs:
   - id: streaming_service
     type: SELECT
     displayName: Select streaming service
-    values: [netflix, amazon_prime, disney_plus]
+    values: [netflix, amazon_prime]
     defaults: netflix
+  - id: year
+    type: SELECT
+    displayName: Select year
+    values: ["2019", "2020", "2021"]
+    defaults: "2021"
+    allowCustomValue: true
 
 variables:
-  file: "{{inputs.streaming_service}}_titles.csv"
+  file: "{{inputs.streaming_service}}_titles_{{inputs.year}}.csv"
   gcs_file: "gs://{{kv('GCP_BUCKET_NAME')}}/{{vars.file}}_"
-  table: "{{kv('GCP_DATASET')}}.{{inputs.streaming_service}}_data"
+  table: "{{kv('GCP_DATASET')}}.{{inputs.streaming_service}}_data_{{inputs.year}}"
 
 tasks:
   - id: set_label
@@ -21,6 +27,7 @@ tasks:
     labels:
       file: "{{render(vars.file)}}"
       service: "{{inputs.streaming_service}}"
+      year: "{{inputs.year}}"
 
   - id: create_dataset
     type: io.kestra.plugin.gcp.bigquery.Query
@@ -33,7 +40,7 @@ tasks:
   - id: extract
     type: io.kestra.plugin.scripts.shell.Commands
     outputFiles:
-      - "{{inputs.streaming_service}}_titles.csv"
+      - "{{vars.file}}"
     taskRunner:
       type: io.kestra.plugin.core.runner.Process
     commands:
@@ -41,7 +48,7 @@ tasks:
 
   - id: upload_to_gcs
     type: io.kestra.plugin.gcp.gcs.Upload
-    from: "{{outputs.extract.outputFiles[inputs.streaming_service ~ '_titles.csv']}}"
+    from: "{{outputs.extract.outputFiles[vars.file]}}"
     to: "{{render(vars.gcs_file)}}"
 
   - id: create_titles_table
