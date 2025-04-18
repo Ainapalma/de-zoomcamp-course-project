@@ -1,13 +1,13 @@
-# Streaming Video Services Content Analysis
+# Netflix Content Analysis (with future expansion to Prime & Disney+)
 
-This project is part of the Data Engineering Zoomcamp course, focusing on analyzing content from streaming video services using a modern data stack and best practices in data engineering.
+This project is part of the Data Engineering Zoomcamp course, focusing on analyzing Netflix content data using a modern data stack and best practices in data engineering. Future iterations will include Amazon Prime Video and Disney+ content analysis.
 
 ## Project Overview
 
-This data engineering project implements an end-to-end pipeline for streaming video services content analysis:
+This data engineering project implements an end-to-end pipeline for Netflix content analysis:
 - Data is uploaded to Google Cloud Storage (GCS) using Kestra for orchestration
 - Data is then loaded into BigQuery for storage and processing
-- Transformations are handled with dbt, using defined schemas
+- Transformations are handled with dbt, using well-defined schemas
 - Final insights are visualized through Metabase dashboards
 
 ## Architecture
@@ -36,11 +36,12 @@ This data engineering project implements an end-to-end pipeline for streaming vi
 
 ```
 .
-├── 00_datasets/                  # Raw and processed datasets
+├── 00_datasets/                  # Raw and processed Netflix datasets
 ├── 01_kestra_pipelines/         # Kestra workflow definitions and configurations
 ├── 02_dbt_transformations/      # dbt models, schemas, and transformations
 ├── 03_metabase_dashboards/      # Metabase dashboard configurations and exports
 ├── data_exploration_notebook.ipynb  # Jupyter notebook for initial data exploration
+├── requirements.txt             # Python dependencies
 ├── .gitignore                   # Git ignore file
 └── README.md                    # Project documentation
 ```
@@ -88,7 +89,7 @@ This data engineering project implements an end-to-end pipeline for streaming vi
 
 ## Data Models
 
-The project uses dbt for transforming raw streaming content data into analytics-ready models. The schema is well-documented and focuses on:
+The project uses dbt for transforming raw Netflix content data into analytics-ready models. The schema is well-documented and focuses on:
 - Content metadata analysis
 - Viewing patterns
 - Engagement metrics
@@ -96,7 +97,27 @@ The project uses dbt for transforming raw streaming content data into analytics-
 
 ## Dashboard
 
-The Metabase dashboard provides insights into streaming content performance and user engagement patterns.
+The Metabase dashboard provides insights into Netflix content performance and user engagement patterns.
+
+## Future Steps
+
+### Phase 2: Amazon Prime Video Integration
+- Add Amazon Prime Video dataset integration
+- Extend dbt models for Prime Video content
+- Create comparative analysis between Netflix and Prime Video
+- Update dashboards to include Prime Video metrics
+
+### Phase 3: Disney+ Integration
+- Incorporate Disney+ content data
+- Expand dbt transformations for Disney+ analysis
+- Develop cross-platform content comparison models
+- Create comprehensive streaming service comparison dashboards
+
+### Future Enhancements
+- Implement automated data quality checks
+- Add sentiment analysis from user reviews
+- Create recommendation engine across platforms
+- Develop content performance prediction models
 
 ## Contributing
 
